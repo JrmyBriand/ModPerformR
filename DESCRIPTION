@@ -1,0 +1,26 @@
+Package: ModPerformR
+Title: Modeling and Analysis of Athletic Performance Records
+Version: 0.1.0
+Authors@R: 
+    person("Jérémy", "Briand", , "jeremy.briand@umontreal.ca", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-1984-9234"))
+Description: ModPerformR provides a comprehensive toolkit for modeling and analyzing athletic performance records, 
+    with a focus on running events. It includes various performance models (such as linear, power law, logarithmic, 
+    exponential, and Riegel's model), functions to apply these models to data, and tools to compare the goodness of 
+    fit of different models. Researchers and analysts can use ModPerformR to investigate trends in athletic performance, 
+    predict potential record-breaking performances, and understand the factors influencing elite athletic achievements.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    dplyr,
+    ggplot2,
+    stats
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
