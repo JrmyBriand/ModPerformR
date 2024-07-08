@@ -26,3 +26,5 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://github.com/JrmyBriand/ModPerformR
 BugReports: https://github.com/JrmyBriand/ModPerformR/issues
+Depends: 
+    R (>= 2.10)
