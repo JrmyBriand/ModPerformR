@@ -52,12 +52,12 @@ the model proposed by Péronnet and Thibault (1989).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">peronnet_thibault_model</span><span class="op">(</span><span class="va">T_est</span>, <span class="va">A</span>, <span class="va">MAP</span>, <span class="va">E</span>, <span class="va">Tmap</span>, BMR <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">peronnet_thibault_model</span><span class="op">(</span><span class="va">t</span>, <span class="va">A</span>, <span class="va">MAP</span>, <span class="va">E</span>, <span class="va">Tmap</span>, BMR <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>T_est</dt>
+    <dl><dt>t</dt>
 <dd><p>Running duration in seconds</p></dd>
 
 
@@ -66,11 +66,11 @@ the model proposed by Péronnet and Thibault (1989).</p>
 
 
 <dt>MAP</dt>
-<dd><p>Maximal aerobic power in W/kg</p></dd>
+<dd><p>Maximal aerobic power in w/kg</p></dd>
 
 
 <dt>E</dt>
-<dd><p>Endurance in W/kg/log(time in s)</p></dd>
+<dd><p>Endurance in w/kg/log(time in s)</p></dd>
 
 
 <dt>Tmap</dt>
@@ -78,7 +78,7 @@ the model proposed by Péronnet and Thibault (1989).</p>
 
 
 <dt>BMR</dt>
-<dd><p>Basal metabolic rate in W/kg</p></dd>
+<dd><p>Basal metabolic rate in w/kg</p></dd>
 
 </dl></div>
     <div id="value">
@@ -96,7 +96,7 @@ and world running records. Journal of applied physiology, 67(1), 453-465.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example usage (replace with realistic values):</span></span></span>
-<span class="r-in"><span><span class="fu">peronnet_thibault_model</span><span class="op">(</span>T_est <span class="op">=</span> <span class="fl">600</span>, A <span class="op">=</span> <span class="fl">1500</span>, MAP <span class="op">=</span> <span class="fl">25</span>, E <span class="op">=</span> <span class="op">-</span><span class="fl">1.5</span>, Tmap <span class="op">=</span> <span class="fl">420</span>, BMR <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">peronnet_thibault_model</span><span class="op">(</span>t <span class="op">=</span> <span class="fl">600</span>, A <span class="op">=</span> <span class="fl">1500</span>, MAP <span class="op">=</span> <span class="fl">25</span>, E <span class="op">=</span> <span class="op">-</span><span class="fl">1.5</span>, Tmap <span class="op">=</span> <span class="fl">420</span>, BMR <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 25.59398</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

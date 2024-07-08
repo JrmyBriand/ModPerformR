@@ -4,20 +4,20 @@
 \alias{peronnet_thibault_model}
 \title{Péronnet-Thibault Running Performance Model}
 \usage{
-peronnet_thibault_model(T_est, A, MAP, E, Tmap, BMR = 1.2)
+peronnet_thibault_model(t, A, MAP, E, Tmap, BMR = 1.2)
 }
 \arguments{
-\item{T_est}{Running duration in seconds}
+\item{t}{Running duration in seconds}
 
 \item{A}{Anaerobic capacity in J/kg}
 
-\item{MAP}{Maximal aerobic power in W/kg}
+\item{MAP}{Maximal aerobic power in w/kg}
 
-\item{E}{Endurance in W/kg/log(time in s)}
+\item{E}{Endurance in w/kg/log(time in s)}
 
 \item{Tmap}{Running duration eliciting MAP in seconds}
 
-\item{BMR}{Basal metabolic rate in W/kg}
+\item{BMR}{Basal metabolic rate in w/kg}
 }
 \value{
 Power output in W/kg
@@ -28,7 +28,7 @@ the model proposed by Péronnet and Thibault (1989).
 }
 \examples{
 # Example usage (replace with realistic values):
-peronnet_thibault_model(T_est = 600, A = 1500, MAP = 25, E = -1.5, Tmap = 420, BMR = 1.2)
+peronnet_thibault_model(t = 600, A = 1500, MAP = 25, E = -1.5, Tmap = 420, BMR = 1.2)
 
 }
 \references{

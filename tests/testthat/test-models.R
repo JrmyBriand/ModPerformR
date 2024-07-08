@@ -4,25 +4,44 @@ test_that("multiplication works", {
 
 test_that("peronnet_thibault_model calculates correctly", {
   # Test case 1: Using example values
-  result1 <- peronnet_thibault_model(A = 1500, MAP = 25, E = -0.5, T_est = 600, BMR = 1.2, Tmap = 300)
+  result1 <- peronnet_thibault_model(A = 1500, MAP = 25, E = -0.5, t = 600, BMR = 1.2, Tmap = 300)
   expect_type(result1, "double")
   expect_length(result1, 1)
 
   # Test case 2: Different values
-  result2 <- peronnet_thibault_model(A = 2000, MAP = 30, E = -0.6, T_est = 1200, BMR = 1.5, Tmap = 400)
+  result2 <- peronnet_thibault_model(A = 2000, MAP = 30, E = -0.6, t = 1200, BMR = 1.5, Tmap = 400)
   expect_type(result2, "double")
   expect_length(result2, 1)
 
   # Test for errors with invalid inputs
-  expect_error(peronnet_thibault_model(A = -1000, MAP = 25, E = -0.5, T_est = 600, BMR = 1.2, Tmap = 300),
+  expect_error(peronnet_thibault_model(A = -1000, MAP = 25, E = -0.5, t = 600, BMR = 1.2, Tmap = 300),
                "Anaerobic capacity \\(A\\) must be positive")
-  expect_error(peronnet_thibault_model(A = 1500, MAP = 25, E = -0.5, T_est = 0, BMR = 1.2, Tmap = 300),
-               "Running duration \\(T_est\\) must be positive")
+  expect_error(peronnet_thibault_model(A = 1500, MAP = 25, E = -0.5, t = 0, BMR = 1.2, Tmap = 300),
+               "Running duration \\(t\\) must be positive")
 
   # Add more specific tests based on expected outputs for known inputs
   # You may need to calculate some expected values based on the model's equation
   # expect_equal(result1, expected_value1, tolerance = 1e-6)
   # expect_equal(result2, expected_value2, tolerance = 1e-6)
+})
+
+test_that("critical_power_model works correctly", {
+  expect_equal(critical_power_model(t = 300, cp = 300, Wprime = 20000), 366.6667, tolerance = 1e-4)
+  expect_error(critical_power_model(t = 0, cp = 300, Wprime = 20000), "Running duration \\(t\\) must be positive")
+  expect_error(critical_power_model(t = 300, cp = 0, Wprime = 20000), "Critical power \\(cp\\) must be positive")
+  expect_error(critical_power_model(t = 300, cp = 300, Wprime = 0), "Anaerobic energy reserve \\(Wprime\\) must be positive")
+  expect_error(critical_power_model(t = -1, cp = 300, Wprime = 20000), "Running duration \\(t\\) must be positive")
+  expect_error(critical_power_model(t = 300, cp = -1, Wprime = 20000), "Critical power \\(cp\\) must be positive")
+  expect_error(critical_power_model(t = 300, cp = 300, Wprime = -1), "Anaerobic energy reserve \\(Wprime\\) must be positive")
+})
+
+test_that("critical_power_model_3p works correctly", {
+  expect_equal(critical_power_model_3p(t = 300, cp = 300, Wprime = 20000, Pmax = 1000), 338.0952, tolerance = 1e-4)
+  expect_error(critical_power_model_3p(t = 0, cp = 300, Wprime = 20000, Pmax = 1000), "Running duration \\(t\\) must be positive")
+  expect_error(critical_power_model_3p(t = 300, cp = 0, Wprime = 20000, Pmax = 1000), "Critical power \\(cp\\) must be positive")
+  expect_error(critical_power_model_3p(t = 300, cp = 300, Wprime = 0, Pmax = 1000), "Anaerobic energy reserve \\(Wprime\\) must be positive")
+  expect_error(critical_power_model_3p(t = 300, cp = 300, Wprime = 20000, Pmax = 0), "Maximal instantaneous power \\(Pmax\\) must be positive")
+  expect_error(critical_power_model_3p(t = 300, cp = 300, Wprime = 20000, Pmax = 300), "Maximal instantaneous power \\(Pmax\\) must be greater than critical power \\(cp\\)")
 })
 
 

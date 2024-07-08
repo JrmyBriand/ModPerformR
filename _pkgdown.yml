@@ -3,9 +3,12 @@ reference:
   desc: "Functions for modeling running performance"
   contents:
   - peronnet_thibault_model
+  - critical_power_model
+  - critical_power_model_3p
 
 - title: "Datasets"
   desc: "World record data for running performances"
   contents:
   - wr_females
   - wr_males
+  - elite_runners
