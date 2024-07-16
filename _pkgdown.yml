@@ -5,10 +5,21 @@ reference:
   - peronnet_thibault_model
   - critical_power_model
   - critical_power_model_3p
+  - di_prampero_running
+  - inv_di_prampero_running
 
 - title: "Datasets"
   desc: "World record data for running performances"
   contents:
-  - wr_females
-  - wr_males
+  - WR_females
+  - WR_males
   - elite_runners
+
+articles:
+- title: "Getting started"
+  contents:
+  - introduction-to-modperformr
+  - running-power-calculations
+- title: "Additional topics"
+  contents:
+  - my-vignette

@@ -5,7 +5,7 @@
 \alias{elite_runners}
 \title{Elite Runners Performance Data}
 \format{
-A data frame with \link{number of rows} rows and 9 variables:
+A data frame with 115 rows and 9 variables:
 \describe{
 \item{Athlete}{Name of the athlete}
 \item{Distance}{Running distance in meters}

@@ -1,41 +1,35 @@
 #' World Records for Male Athletes
 #'
-#' A dataset containing world records for various events for male athletes.
+#' A dataset containing world record times for male athletes across 11 distances from 1912 to 2023 in long format.
 #'
-#' @format A data frame with [number of rows] rows and [number of columns] columns:
+#' @format A data frame with 1,232 rows and 3 columns:
 #' \describe{
-#'   \item{event}{Name of the event}
-#'   \item{time}{Record time}
-#'   \item{athlete}{Name of the athlete}
-#'   \item{country}{Athlete's country}
-#'   \item{date}{Date when the record was set}
-#'   ...
+#'   \item{Year}{The year of the world record, ranging from 1912 to 2023}
+#'   \item{Distance}{The running distance in meters. Possible values are 100, 200, 400, 800, 1500, 1609, 3000, 5000, 10000, 21100 (half marathon), and 42195 (marathon)}
+#'   \item{Time}{World record time in seconds for the given year and distance}
 #' }
 #' @source \url{https://www.worldathletics.org/records/by-category/world-records}
-"wr_males"
+"WR_males"
 
 #' World Records for Female Athletes
 #'
-#' A dataset containing world records for various events for female athletes.
+#' A dataset containing world record times for female athletes across 11 distances from 1912 to 2023 in long format.
 #'
-#' @format A data frame with [number of rows] rows and [number of columns] columns:
+#' @format A data frame with 1,232 rows and 3 columns:
 #' \describe{
-#'   \item{event}{Name of the event}
-#'   \item{time}{Record time}
-#'   \item{athlete}{Name of the athlete}
-#'   \item{country}{Athlete's country}
-#'   \item{date}{Date when the record was set}
-#'   ...
+#'   \item{Year}{The year of the world record, ranging from 1912 to 2023}
+#'   \item{Distance}{The running distance in meters. Possible values are 100, 200, 400, 800, 1500, 1609, 3000, 5000, 10000, 21100 (half marathon), and 42195 (marathon)}
+#'   \item{Time}{World record time in seconds for the given year and distance}
 #' }
 #' @source \url{https://www.worldathletics.org/records/by-category/world-records}
-"wr_females"
+"WR_females"
 
 
 #' Elite Runners Performance Data
 #'
 #' A dataset containing performance data for elite runners across various distances.
 #'
-#' @format A data frame with [number of rows] rows and 9 variables:
+#' @format A data frame with 115 rows and 9 variables:
 #' \describe{
 #'   \item{Athlete}{Name of the athlete}
 #'   \item{Distance}{Running distance in meters}

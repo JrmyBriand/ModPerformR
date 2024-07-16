@@ -1,0 +1,111 @@
+---
+title: "running-power-calculations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{running-power-calculations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ModPerformR)
+```
+
+## Introduction
+This vignette demonstrates how to use the `di_prampero_running` and `inv_di_prampero_running` functions from the ModPerformR package to calculate running power and estimate running distance based on power output.
+
+
+## Calculating Running Power
+
+The `di_prampero_running` function calculates the power output for a given running velocity and distance. Here's an example:
+
+```{r}
+velocity <- 5  # m/s
+distance <- 5000  # meters
+
+power <- di_prampero_running(velocity, distance)
+print(paste("Estimated power output:", round(power, 2), "watts"))
+
+```
+
+We can also use custom parameters:
+
+```{r}
+power_custom <- di_prampero_running(
+  velocity = 6,
+  distance = 10000,
+  BM = 65,  # Body mass in kg
+  BSA = 1.7  # Body surface area in m^2
+)
+print(paste("Estimated power output (custom parameters):", round(power_custom, 2), "watts"))
+
+```
+
+## Estimating Running Distance
+The `inv_di_prampero_running` function estimates the running distance for a given power output and duration. Here's an example:
+
+```{r}
+power <- 300  # watts
+time <- 1800  # seconds (30 minutes)
+
+distance <- inv_di_prampero_running(power, time)
+print(paste("Estimated distance:", round(distance, 2), "meters"))
+
+```
+
+We can also use custom parameters:
+
+```{r}
+distance_custom <- inv_di_prampero_running(
+  Power = 350,
+  t = 3600,  # 1 hour
+  BM = 75,  # Body mass in kg
+  BSA = 1.9  # Body surface area in m^2
+)
+print(paste("Estimated distance (custom parameters):", round(distance_custom, 2), "meters"))
+
+```
+
+## Comparing Power Outputs at Different Velocities
+Let's compare power outputs at different velocities for a 5000m run:
+
+```{r}
+velocities <- seq(3, 7, by = 0.5)
+powers <- sapply(velocities, function(v) di_prampero_running(v, 5000))
+
+# Create a data frame for easy viewing
+comparison <- data.frame(
+  Velocity = velocities,
+  Power = powers
+)
+
+print(comparison)
+
+```
+
+## Estimating Distances for Different Power Outputs
+Now, let's estimate the distances covered in a 30-minute run at different power outputs:
+
+```{r}
+powers <- seq(200, 400, by = 50)
+distances <- sapply(powers, function(p) inv_di_prampero_running(p, 1800))
+
+# Create a data frame for easy viewing
+comparison <- data.frame(
+  Power = powers,
+  Distance = distances
+)
+
+print(comparison)
+
+```
+
+
+

@@ -2,4 +2,10 @@
 
 export(critical_power_model)
 export(critical_power_model_3p)
+export(di_prampero_running)
+export(inv_di_prampero_running)
 export(peronnet_thibault_model)
+importFrom(dplyr,"%>%")
+importFrom(ggplot2,ggplot)
+importFrom(stats,median)
+importFrom(stats,optim)

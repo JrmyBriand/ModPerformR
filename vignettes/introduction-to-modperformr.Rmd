@@ -1,0 +1,96 @@
+---
+title: "introduction-to-modperformr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction-to-modperformr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ModPerformR)
+```
+
+## Introduction
+ModPerformR is a package designed for modeling and analyzing running performance. It provides a set of functions to calculate various aspects of running performance, including power output, critical power models, and utilities for working with running data.
+
+## Péronnet-Thibault Model
+The Péronnet-Thibault model is used to estimate power output for a given running duration.
+
+```{r}
+# Example usage
+power_output <- peronnet_thibault_model(
+  t = 600,  # Running duration in seconds
+  A = 1500,     # Anaerobic capacity in J/kg
+  MAP = 25,     # Maximal aerobic power in W/kg
+  E = -1.5,     # Endurance in W/kg/log(time in s)
+  Tmap = 420,   # Running duration eliciting MAP in seconds
+  BMR = 1.2     # Basal metabolic rate in W/kg
+)
+
+print(paste("Estimated power output:", round(power_output, 2), "W/kg"))
+
+```
+
+## Critical Power Model
+
+The Critical Power model is another approach to estimate sustainable power output.
+
+```{r}
+# Example usage
+power_output_cp <- critical_power_model(
+  t = 300,     # Duration in seconds
+  cp = 300,    # Critical power in watts
+  Wprime = 20000 # Anaerobic work capacity in joules
+)
+
+print(paste("Estimated power output (Critical Power model):", round(power_output_cp, 2), "W"))
+
+```
+
+
+## Di Prampero Running Power
+The di_prampero_running function converts running velocity to power output.
+
+```{r}
+# Example usage
+power_output_dp <- di_prampero_running(
+  velocity = 5,  # Running velocity in m/s
+  distance = 1000  # Running distance in meters
+)
+
+print(paste("Estimated power output (Di Prampero model):", round(power_output_dp, 2), "W"))
+
+```
+
+## Working with World Records Data
+ModPerformR includes datasets of world records for male and female athletes. Let's explore this data:
+
+```{r}
+# Load the datasets
+data(WR_males)
+data(WR_females)
+
+# View the first few rows of male world records
+head(WR_males)
+
+# Calculate average world record times for males and females at 100m
+avg_100m_male <- mean(WR_males$Time[WR_males$Distance == 100], na.rm = TRUE)
+avg_100m_female <- mean(WR_females$Time[WR_females$Distance == 100], na.rm = TRUE)
+
+print(paste("Average 100m world record time (males):", round(avg_100m_male, 2), "seconds"))
+print(paste("Average 100m world record time (females):", round(avg_100m_female, 2), "seconds"))
+
+```
+
+## Conclusion
+
+This vignette provides an introduction to the main functions and datasets in the ModPerformR package. These tools can be used to analyze running performance, estimate power output, and work with historical world record data.
+
