@@ -44,4 +44,58 @@ test_that("critical_power_model_3p works correctly", {
   expect_error(critical_power_model_3p(t = 300, cp = 300, Wprime = 20000, Pmax = 300), "Maximal instantaneous power \\(Pmax\\) must be greater than critical power \\(cp\\)")
 })
 
+test_that("Kennelly models work correctly", {
+  expect_equal(Kennelly_1906_V(1000, 10), 4.216965, tolerance = 1e-6)
+  expect_error(Kennelly_1906_V(-1000, 10), "Distance must be positive")
+  expect_error(Kennelly_1906_V(1000, -10), "Ck must be positive")
 
+  expect_equal(Kennelly_1906_P(1000, 10),  257.583, tolerance = 1e-6)
+  expect_type(Kennelly_1906_P(1000, 10), "double")
+  expect_error(Kennelly_1906_P(-1000, 10), "Distance must be positive")
+  expect_error(Kennelly_1906_P(1000, -10), "Ck must be positive")
+})
+
+test_that("Riegel models work correctly", {
+  expect_equal(Riegel_time(1000, 2.5, 1.06), 3783.903, tolerance = 1e-6)
+  expect_error(Riegel_time(-1000, 2.5, 1.06), "Distance must be positive")
+  expect_error(Riegel_time(1000, -2.5, 1.06), "a must be positive")
+  expect_error(Riegel_time(1000, 2.5, -1.06), "b must be positive")
+
+  expect_equal(Riegel_velocity(1000, 2.5, 1.06),0.2642774, tolerance = 1e-6)
+  expect_type(Riegel_velocity(1000, 10, 1.06), "double")
+  expect_error(Riegel_velocity(-1000, 10, 1.06), "Distance must be positive")
+  expect_error(Riegel_velocity(1000, -10, 1.06), "a must be positive")
+  expect_error(Riegel_velocity(1000, 10, -1.06), "b must be positive")
+
+  expect_equal(Riegel_power(1000, 2.5, 1.06), 31.08472, tolerance = 1e-6)
+  expect_type(Riegel_power(1000, 10, 1.06), "double")
+  expect_error(Riegel_power(-1000, 10, 1.06), "Distance must be positive")
+  expect_error(Riegel_power(1000, -10, 1.06), "a must be positive")
+  expect_error(Riegel_power(1000, 10, -1.06), "b must be positive")
+})
+
+test_that("Rumball models work correctly", {
+  expect_type(Rumball_velocity(1000, 0.2, 2), "double")
+  expect_error(Rumball_velocity(-1000, 0.2, 2), "Distance must be positive")
+  expect_error(Rumball_velocity(1000, -0.2, 2), "Fatigue coefficient \\(f\\) must be positive")
+
+  expect_type(Rumball_power(1000, 0.2, 2), "double")
+  expect_error(Rumball_power(1000, -0.2, 2), "Fatigue coefficient \\(f\\) must be positive")
+})
+
+test_that("Lloyd model works correctly", {
+  expect_type(Lloyd(25, 0.05, 20, 10, 100), "double")
+  expect_error(Lloyd(-25, 0.05, 20, 10, 100), "Pmax must be positive")
+  expect_error(Lloyd(25, -0.05, 20, 10, 100), "g must be positive")
+  expect_error(Lloyd(25, 0.05, -20, 10, 100), "MAP must be positive")
+  expect_error(Lloyd(25, 0.05, 20, -10, 100), "k must be positive")
+  expect_error(Lloyd(25, 0.05, 20, 10, -100), "Time must be positive")
+})
+
+test_that("Ward-Smith model works correctly", {
+  expect_type(WardSmith(25, 20, 0.05, 100), "double")
+  expect_error(WardSmith(-25, 20, 0.05, 100), "Pmax must be positive")
+  expect_error(WardSmith(25, -20, 0.05, 100), "MAP must be positive")
+  expect_error(WardSmith(25, 20, -0.05, 100), "lambda must be positive")
+  expect_error(WardSmith(25, 20, 0.05, -100), "Time must be positive")
+})

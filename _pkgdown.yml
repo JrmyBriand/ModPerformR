@@ -5,8 +5,15 @@ reference:
   - peronnet_thibault_model
   - critical_power_model
   - critical_power_model_3p
-  - di_prampero_running
-  - inv_di_prampero_running
+  - Kennelly_1906_V
+  - Kennelly_1906_P
+  - Riegel_time
+  - Riegel_velocity
+  - Riegel_power
+  - Rumball_velocity
+  - Rumball_power
+  - Lloyd
+  - WardSmith
 
 - title: "Datasets"
   desc: "World record data for running performances"
@@ -14,6 +21,12 @@ reference:
   - WR_females
   - WR_males
   - elite_runners
+
+- title: "Utility Functions"
+  desc: "Useful functions to apply the performance models"
+  contents:
+  - di_prampero_running
+  - inv_di_prampero_running
 
 articles:
 - title: "Getting started"

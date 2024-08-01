@@ -55,6 +55,88 @@ print(paste("Estimated power output (Critical Power model):", round(power_output
 
 ```
 
+## Kennelly Models
+
+The Kennelly models estimate running velocity and power based on distance.
+
+```{r}
+distance <- 1000
+ck <- 10
+
+velocity <- Kennelly_1906_V(distance, ck)
+power <- Kennelly_1906_P(distance, ck)
+
+print(paste("Estimated velocity from Kennelly model:", round(velocity, 2), "m/s"))
+print(paste("Estimated power from Kennelly model:", round(power, 2), "W"))
+
+```
+
+## Riegel Models
+The Riegel models estimate running time, velocity, and power based on distance.
+
+```{r}
+distance <- 1000
+a <- 10
+b <- 1.06
+
+time <- Riegel_time(distance, a, b)
+velocity <- Riegel_velocity(distance, a, b)
+power <- Riegel_power(distance, a, b)
+
+print(paste("Time estimated from Riegel model:", round(time, 2), "s"))
+print(paste("Velocity estimated from Riegel model:", round(velocity, 2), "m/s"))
+print(paste("Power estimated from Riegel model:", round(power, 2), "W"))
+
+```
+
+## Rumball Models
+The Rumball models estimate running velocity and power based on distance.
+
+```{r}
+distance <- 1000
+f <- 0.5
+c <- 2
+
+velocity <- Rumball_velocity(distance, f, c)
+power <- Rumball_power(distance, f, c)
+
+print(paste("Velocity estimated from Rumball model:", round(velocity, 2), "m/s"))
+print(paste("Power estimated from Rumball model:", round(power, 2), "W"))
+
+```
+
+## Lloyd Model
+The Lloyd model estimates power output based on time and various physiological parameters.
+
+```{r}
+pmax <- 25
+g <- 0.05
+map <- 25
+k <- 10
+time <- 100
+
+power <- Lloyd(pmax, g, map, k, time)
+
+print(paste("Power estimated from Lloyd model:", round(power, 2), "W/kg"))
+
+```
+
+
+## Ward-Smith Model
+The Ward-Smith model estimates power output based on time and various physiological parameters.
+
+```{r}
+pmax <- 25
+map <- 25
+lambda <- 0.05
+time <- 100
+
+power <- WardSmith(pmax, map, lambda, time)
+
+print(paste("Power estimated from Ward-Smith model:", round(power, 2), "W/kg"))
+
+```
+
 
 ## Di Prampero Running Power
 The di_prampero_running function converts running velocity to power output.
