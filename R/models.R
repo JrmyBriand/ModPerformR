@@ -388,6 +388,84 @@ WardSmith <- function(Pmax, MAP, lambda, Time) {
   return(P)
 }
 
+#' Omni-Domain Power-Duration Model
+#'
+#' This function calculates power output based on the Omni-Domain Power-Duration model.
+#'
+#' @param Pmax Numeric. Maximal instantaneous power in W (must be positive).
+#' @param Wprime Numeric. Anaerobic energy reserve in J (must be positive).
+#' @param CP Numeric. Critical power in W (must be positive).
+#' @param A Numeric. Index representing the power for exercise durations greater than 30 minutes.
+#' @param Time Numeric. Running time in seconds (must be positive).
+#'
+#' @return Numeric. Power output in W.
+#'
+#' @note The Wprime and CP parameters are not equivalent to those presented in the original critical power model.
+#'
+#' @references
+#' Puchowicz, Michael J., Jonathan Baker, and David C. Clarke. "Development and Field Validation of an Omni-Domain Power-Duration Model."
+#' Journal of Sports Sciences 38, no. 7 (April 2020): 801–13. https://doi.org/10.1080/02640414.2020.1735609.
+#'
+#' @export
+#'
+#' @examples
+#' OmPD(Pmax = 25, Wprime = 20000, CP = 300, A = 0.05, Time = 1800)
+OmPD <- function(Pmax, Wprime, CP, A, Time) {
+  # Input validation
+  if (Pmax <= 0) stop("Pmax must be positive")
+  if (Wprime <= 0) stop("Wprime must be positive")
+  if (CP <= 0) stop("CP must be positive")
+  if (Time <= 0) stop("Time must be positive")
+
+  if (Time < 30 * 60) {
+    # For durations less than 30 minutes
+    P <- Wprime / Time * (1 - exp(-Time / Wprime * (Pmax - CP))) + CP
+  } else {
+    # For durations 30 minutes or greater
+    P <- Wprime / Time * (1 - exp(-Time / Wprime * (Pmax - CP))) + CP - A * log(Time / (30 * 60))
+  }
+
+  return(P)
+}
+
+
+#' Roy and Joyner Running Speed Model
+#'
+#' This function calculates world record running speed based on the Roy and Joyner model.
+#'
+#' @param S Numeric. Index representing the aerobic metabolic slowdown or reduced contribution as running distance increases (m/s). Must be positive.
+#' @param V0 Numeric. Extrapolated speed at 100 m (m/s). Must be positive.
+#' @param B Numeric. Index representing an anaerobic boost at 100 m (m/s). Must be positive.
+#' @param b Numeric. Determines the shape of the anaerobic boost curve as a function of distance. Must be positive.
+#' @param d Numeric. Rate of decline of the anaerobic boost with increasing distance (m). Must be positive.
+#' @param Distance Numeric. Running distance in meters. Must be positive.
+#'
+#' @return Numeric. World record running speed in m/s.
+#'
+#' @references
+#' Roy, Tuhin K., Michael J. Joyner, Jonathon W. Senefeld, Chad C. Wiggins, and Timothy W. Secomb.
+#' "An Empirical Model for World Record Running Speeds with Distance, Age, and Sex: Anaerobic and Aerobic Contributions to Performance."
+#' Journal of Applied Physiology (Bethesda, Md.: 1985), June 27, 2024. https://doi.org/10.1152/japplphysiol.00033.2024.
+#'
+#' @export
+#'
+#' @examples
+#' model_roy(S = 0.1, V0 = 12, B = 2, b = 1.5, d = 200, Distance = 1000)
+model_roy <- function(S, V0, B, b, d, Distance) {
+  # Input validation
+  if (S <= 0) stop("S must be positive")
+  if (V0 <= 0) stop("V0 must be positive")
+  if (B <= 0) stop("B must be positive")
+  if (b <= 0) stop("b must be positive")
+  if (d <= 0) stop("d must be positive")
+  if (Distance <= 0) stop("Distance must be positive")
+
+  # Calculate world record speed
+  v_wr <- V0 - S * log(Distance / 100) + B * (1 + (100 / d)^b) / (1 + (Distance / d)^b)
+
+  return(v_wr)
+}
+
 
 
 

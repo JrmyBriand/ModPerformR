@@ -215,11 +215,64 @@ physiological parameters.</p>
 <span><span class="co">#&gt; [1] "Power estimated from Ward-Smith model: 25 W/kg"</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="omni-domain-power-duration-model">Omni-Domain Power-Duration Model<a class="anchor" aria-label="anchor" href="#omni-domain-power-duration-model"></a>
+</h2>
+<p>The OmniPD model calculates power output based on various
+physiological parameters and running time.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pmax</span> <span class="op">&lt;-</span> <span class="fl">25</span>    <span class="co"># Maximal instantaneous power (W)</span></span>
+<span><span class="va">wprime</span> <span class="op">&lt;-</span> <span class="fl">20000</span>  <span class="co"># Anaerobic energy reserve (J)</span></span>
+<span><span class="va">cp</span> <span class="op">&lt;-</span> <span class="fl">300</span>     <span class="co"># Critical power (W)</span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>     <span class="co"># Power index for durations &gt; 30 minutes</span></span>
+<span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fl">1800</span>  <span class="co"># Running time (s)</span></span>
+<span></span>
+<span><span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OmPD.html">OmPD</a></span><span class="op">(</span>Pmax <span class="op">=</span> <span class="va">pmax</span>, Wprime <span class="op">=</span> <span class="va">wprime</span>, CP <span class="op">=</span> <span class="va">cp</span>, A <span class="op">=</span> <span class="va">a</span>, Time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"OmniPD Power Output:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">power</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"W/kg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "OmniPD Power Output: -623083021788.15 W/kg"</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Compare power output for different durations</span></span>
+<span><span class="va">short_duration</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OmPD.html">OmPD</a></span><span class="op">(</span>Pmax <span class="op">=</span> <span class="va">pmax</span>, Wprime <span class="op">=</span> <span class="va">wprime</span>, CP <span class="op">=</span> <span class="va">cp</span>, A <span class="op">=</span> <span class="va">a</span>, Time <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">long_duration</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OmPD.html">OmPD</a></span><span class="op">(</span>Pmax <span class="op">=</span> <span class="va">pmax</span>, Wprime <span class="op">=</span> <span class="va">wprime</span>, CP <span class="op">=</span> <span class="va">cp</span>, A <span class="op">=</span> <span class="va">a</span>, Time <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Power output (short duration):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">short_duration</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"W/kg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Power output (short duration): -18731463.16 W/kg"</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Power output (long duration):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">long_duration</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"W/kg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Power output (long duration): -1.74704603592759e+22 W/kg"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="roy-and-joyner-running-speed-model">Roy and Joyner Running Speed Model<a class="anchor" aria-label="anchor" href="#roy-and-joyner-running-speed-model"></a>
+</h2>
+<p>The Roy and Joyner model estimates world record running speeds based
+on distance and various physiological parameters.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fl">0.1</span>    <span class="co"># Aerobic metabolic slowdown index (m/s)</span></span>
+<span><span class="va">v0</span> <span class="op">&lt;-</span> <span class="fl">12</span>    <span class="co"># Extrapolated speed at 100 m (m/s)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">2</span>      <span class="co"># Anaerobic boost index at 100 m (m/s)</span></span>
+<span><span class="va">beta</span> <span class="op">&lt;-</span> <span class="fl">1.5</span> <span class="co"># Shape parameter for anaerobic boost curve</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">200</span>    <span class="co"># Rate of decline of anaerobic boost (m)</span></span>
+<span><span class="va">distance</span> <span class="op">&lt;-</span> <span class="fl">1000</span>  <span class="co"># Running distance (m)</span></span>
+<span></span>
+<span><span class="va">speed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_roy.html">model_roy</a></span><span class="op">(</span>S <span class="op">=</span> <span class="va">s</span>, V0 <span class="op">=</span> <span class="va">v0</span>, B <span class="op">=</span> <span class="va">b</span>, b <span class="op">=</span> <span class="va">beta</span>, d <span class="op">=</span> <span class="va">d</span>, Distance <span class="op">=</span> <span class="va">distance</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Roy and Joyner Model Speed:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">speed</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"m/s"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Roy and Joyner Model Speed: 11.99 m/s"</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Compare speeds for different distances</span></span>
+<span><span class="va">speed_100m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_roy.html">model_roy</a></span><span class="op">(</span>S <span class="op">=</span> <span class="va">s</span>, V0 <span class="op">=</span> <span class="va">v0</span>, B <span class="op">=</span> <span class="va">b</span>, b <span class="op">=</span> <span class="va">beta</span>, d <span class="op">=</span> <span class="va">d</span>, Distance <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">speed_marathon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_roy.html">model_roy</a></span><span class="op">(</span>S <span class="op">=</span> <span class="va">s</span>, V0 <span class="op">=</span> <span class="va">v0</span>, B <span class="op">=</span> <span class="va">b</span>, b <span class="op">=</span> <span class="va">beta</span>, d <span class="op">=</span> <span class="va">d</span>, Distance <span class="op">=</span> <span class="fl">42195</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Estimated speed (100m):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">speed_100m</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"m/s"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Estimated speed (100m): 14 m/s"</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Estimated speed (marathon):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">speed_marathon</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"m/s"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Estimated speed (marathon): 11.4 m/s"</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="di-prampero-running-power">Di Prampero Running Power<a class="anchor" aria-label="anchor" href="#di-prampero-running-power"></a>
 </h2>
 <p>The di_prampero_running function converts running velocity to power
 output.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example usage</span></span>
 <span><span class="va">power_output_dp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/di_prampero_running.html">di_prampero_running</a></span><span class="op">(</span></span>
 <span>  velocity <span class="op">=</span> <span class="fl">5</span>,  <span class="co"># Running velocity in m/s</span></span>
@@ -234,14 +287,14 @@ output.</p>
 </h2>
 <p>ModPerformR includes datasets of world records for male and female
 athletes. Let’s explore this data:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the datasets</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">WR_males</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in data(WR_males): data set 'WR_males' not found</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">WR_females</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in data(WR_females): data set 'WR_females' not found</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># View the first few rows of male world records</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">WR_males</span><span class="op">)</span></span>
@@ -254,7 +307,7 @@ athletes. Let’s explore this data:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">1</span>912      800 112. </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">1</span>912     <span style="text-decoration: underline;">1</span>500 236. </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">1</span>912     <span style="text-decoration: underline;">1</span>609 254.</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Calculate average world record times for males and females at 100m</span></span>
 <span><span class="va">avg_100m_male</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">WR_males</span><span class="op">$</span><span class="va">Time</span><span class="op">[</span><span class="va">WR_males</span><span class="op">$</span><span class="va">Distance</span> <span class="op">==</span> <span class="fl">100</span><span class="op">]</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -262,7 +315,7 @@ athletes. Let’s explore this data:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Average 100m world record time (males):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">avg_100m_male</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"seconds"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Average 100m world record time (males): 10.04 seconds"</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Average 100m world record time (females):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">avg_100m_female</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"seconds"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Average 100m world record time (females): 11.09 seconds"</span></span></code></pre></div>
 </div>

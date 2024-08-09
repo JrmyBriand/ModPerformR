@@ -14,6 +14,8 @@ reference:
   - Rumball_power
   - Lloyd
   - WardSmith
+  - OmPD
+  - model_roy
 
 - title: "Datasets"
   desc: "World record data for running performances"

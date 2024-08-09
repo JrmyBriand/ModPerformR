@@ -99,3 +99,38 @@ test_that("Ward-Smith model works correctly", {
   expect_error(WardSmith(25, 20, -0.05, 100), "lambda must be positive")
   expect_error(WardSmith(25, 20, 0.05, -100), "Time must be positive")
 })
+
+# Test OmniPD model
+
+test_that("OmniPD model works correctly", {
+  expect_type(OmPD(Pmax = 25, Wprime = 20000, CP = 300, A = 0.05, Time = 1800), "double")
+  expect_error(OmPD(Pmax = -25, Wprime = 20000, CP = 300, A = 0.05, Time = 1800), "Pmax must be positive")
+  expect_error(OmPD(Pmax = 25, Wprime = -20000, CP = 300, A = 0.05, Time = 1800), "Wprime must be positive")
+  expect_error(OmPD(Pmax = 25, Wprime = 20000, CP = -300, A = 0.05, Time = 1800), "CP must be positive")
+  expect_error(OmPD(Pmax = 25, Wprime = 20000, CP = 300, A = 0.05, Time = -1800), "Time must be positive")
+
+  # Test transition at 30 minutes
+  result_before <- OmPD(Pmax = 25, Wprime = 20000, CP = 300, A = 0.05, Time = 29 * 60)
+  result_after <- OmPD(Pmax = 25, Wprime = 20000, CP = 300, A = 0.05, Time = 31 * 60)
+  expect_lt(result_after, result_before)
+})
+
+#Tests Roy and Joyner model
+
+test_that("Roy and Joyner model works correctly", {
+  expect_type(model_roy(S = 0.1, V0 = 12, B = 2, b = 1.5, d = 200, Distance = 1000), "double")
+  expect_error(model_roy(S = -0.1, V0 = 12, B = 2, b = 1.5, d = 200, Distance = 1000), "S must be positive")
+  expect_error(model_roy(S = 0.1, V0 = -12, B = 2, b = 1.5, d = 200, Distance = 1000), "V0 must be positive")
+  expect_error(model_roy(S = 0.1, V0 = 12, B = -2, b = 1.5, d = 200, Distance = 1000), "B must be positive")
+  expect_error(model_roy(S = 0.1, V0 = 12, B = 2, b = -1.5, d = 200, Distance = 1000), "b must be positive")
+  expect_error(model_roy(S = 0.1, V0 = 12, B = 2, b = 1.5, d = -200, Distance = 1000), "d must be positive")
+  expect_error(model_roy(S = 0.1, V0 = 12, B = 2, b = 1.5, d = 200, Distance = -1000), "Distance must be positive")
+
+  # Test that speed decreases with distance
+  speed_100m <- model_roy(S = 0.1, V0 = 12, B = 2, b = 1.5, d = 200, Distance = 100)
+  speed_1000m <- model_roy(S = 0.1, V0 = 12, B = 2, b = 1.5, d = 200, Distance = 1000)
+  expect_gt(speed_100m, speed_1000m)
+})
+
+
+

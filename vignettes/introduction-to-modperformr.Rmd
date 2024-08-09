@@ -137,6 +137,50 @@ print(paste("Power estimated from Ward-Smith model:", round(power, 2), "W/kg"))
 
 ```
 
+## Omni-Domain Power-Duration Model
+The OmniPD model calculates power output based on various physiological parameters and running time.
+
+```{r}
+pmax <- 25    # Maximal instantaneous power (W)
+wprime <- 20000  # Anaerobic energy reserve (J)
+cp <- 300     # Critical power (W)
+a <- 0.05     # Power index for durations > 30 minutes
+time <- 1800  # Running time (s)
+
+power <- OmPD(Pmax = pmax, Wprime = wprime, CP = cp, A = a, Time = time)
+print(paste("OmniPD Power Output:", round(power, 2), "W/kg"))
+
+# Compare power output for different durations
+short_duration <- OmPD(Pmax = pmax, Wprime = wprime, CP = cp, A = a, Time = 1000)
+long_duration <- OmPD(Pmax = pmax, Wprime = wprime, CP = cp, A = a, Time = 3600)
+print(paste("Power output (short duration):", round(short_duration, 2), "W/kg"))
+print(paste("Power output (long duration):", round(long_duration, 2), "W/kg"))
+
+```
+
+## Roy and Joyner Running Speed Model
+The Roy and Joyner model estimates world record running speeds based on distance and various physiological parameters.
+
+```{r}
+s <- 0.1    # Aerobic metabolic slowdown index (m/s)
+v0 <- 12    # Extrapolated speed at 100 m (m/s)
+b <- 2      # Anaerobic boost index at 100 m (m/s)
+beta <- 1.5 # Shape parameter for anaerobic boost curve
+d <- 200    # Rate of decline of anaerobic boost (m)
+distance <- 1000  # Running distance (m)
+
+speed <- model_roy(S = s, V0 = v0, B = b, b = beta, d = d, Distance = distance)
+print(paste("Roy and Joyner Model Speed:", round(speed, 2), "m/s"))
+
+# Compare speeds for different distances
+speed_100m <- model_roy(S = s, V0 = v0, B = b, b = beta, d = d, Distance = 100)
+speed_marathon <- model_roy(S = s, V0 = v0, B = b, b = beta, d = d, Distance = 42195)
+print(paste("Estimated speed (100m):", round(speed_100m, 2), "m/s"))
+print(paste("Estimated speed (marathon):", round(speed_marathon, 2), "m/s"))
+
+```
+
+
 
 ## Di Prampero Running Power
 The di_prampero_running function converts running velocity to power output.
